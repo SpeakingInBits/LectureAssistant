@@ -20,7 +20,9 @@ public static class AppPaths
         }
         catch (Exception)
         {
-            // Unpackaged (e.g. running straight from bin during development) has no package identity.
+            // Unpackaged (a Velopack install, or running straight from bin during development) has no package identity.
+            // This must not be Velopack's install folder (%LOCALAPPDATA%\<packId>, see packaging/package.sh): uninstalling
+            // empties that folder, which would delete the instructor's projects and models.
             var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "LectureAssistant");
             Directory.CreateDirectory(path);
             return path;

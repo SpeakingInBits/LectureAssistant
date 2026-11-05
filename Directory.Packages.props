@@ -5,6 +5,8 @@
     <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.28000.2705" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
+    <!-- Updates the installed app from the GitHub releases. Keep in step with vpk in .github/workflows/release.yml. -->
+    <PackageVersion Include="Velopack" Version="1.2.161" />
 
     <!-- Transcription -->
     <PackageVersion Include="Whisper.net" Version="1.9.1" />

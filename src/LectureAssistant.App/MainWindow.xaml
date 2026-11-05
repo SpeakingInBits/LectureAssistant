@@ -12,6 +12,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -22,9 +23,15 @@
             </StackPanel>
         </Grid>
 
+        <InfoBar x:Name="UpdateBar" Grid.Row="1" Severity="Informational" Title="Update ready">
+            <InfoBar.ActionButton>
+                <Button Content="Restart now" Click="RestartNow_Click" />
+            </InfoBar.ActionButton>
+        </InfoBar>
+
         <NavigationView
             x:Name="Nav"
-            Grid.Row="1"
+            Grid.Row="2"
             IsBackButtonVisible="Auto"
             IsBackEnabled="{x:Bind ContentFrame.CanGoBack, Mode=OneWay}"
             IsSettingsVisible="True"

@@ -62,7 +62,8 @@ src/
   LectureAssistant.Transcription       Whisper.net transcriber + model downloads
   LectureAssistant.QuestionGeneration  Claude and local-LLM question generators, prompt, post-processing
   LectureAssistant.Export              SCORM 1.2 (with a YouTube-based quiz player) and H5P exporters
-  LectureAssistant.App                 WinUI 3 app (MSIX packaged)
+  LectureAssistant.App                 WinUI 3 app (MSIX for the Store, Velopack for GitHub releases)
+packaging/                             Builds the Velopack packages and the release notes
 tests/                                 xUnit tests per library
 ```
 
@@ -79,6 +80,16 @@ dotnet build src/LectureAssistant.App -p:Platform=x64
 ```
 
 To debug the packaged app, open `LectureAssistant.slnx` in Visual Studio 2026 with the "WinUI application development" workload, set `LectureAssistant.App` as the startup project, and press F5.
+
+## Releases
+
+Run the **Release** workflow from the Actions tab, on `main`, and choose what's in the release (which picks the next version number). It builds the app for x64 and ARM64, packages it with [Velopack](https://velopack.io), and publishes a GitHub release with a `Setup.exe` and a portable zip for each. Pull requests that change the packaging build every package without releasing.
+
+- **Unpackaged build:** this is a self-contained build of the same project, with the Windows App SDK inside it, so it needs no MSIX or Store. It keeps its data in `%LOCALAPPDATA%\LectureAssistant`.
+- **Updates:** at startup an installed copy looks at the newest GitHub release (`releases/latest/download/`) for its own architecture's `releases.<rid>.json`. A newer version downloads in the background, and a banner offers **Restart now**; otherwise it installs the next time the app opens. Updates are full packages, not deltas. The Store package and debug builds aren't installed by Velopack, so they never check.
+- **Trying an update:** package two versions with `packaging/package.sh`, install the older one, and run it with `LA_UPDATE_SOURCE` set to the newer one's `dist` folder.
+- **Velopack versions:** the `Velopack` package in `Directory.Packages.props` and `vpk` in `release.yml` must stay the same.
+- **Signing:** none for now, so Windows warns the first time. The release notes say how to get past it.
 
 ## Store submission checklist
 
