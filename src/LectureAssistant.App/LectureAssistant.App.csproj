@@ -13,10 +13,13 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <DefaultLanguage>en-US</DefaultLanguage>
+    <!-- Program.cs is the entry point, so Velopack can run before anything else. -->
+    <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Assets\*.png" />
+    <!-- Copied to the output too: the Velopack build isn't an MSIX, so it reads them from the app's folder. -->
+    <Content Include="Assets\*.png;Assets\AppIcon.ico" CopyToOutputDirectory="PreserveNewest" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -33,6 +36,7 @@
     <PackageReference Include="Microsoft.WindowsAppSDK" />
     <PackageReference Include="CommunityToolkit.Mvvm" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+    <PackageReference Include="Velopack" />
   </ItemGroup>
 
   <ItemGroup>

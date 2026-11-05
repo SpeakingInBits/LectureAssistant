@@ -60,6 +60,7 @@ public partial class App : Application
         services.AddSingleton<ModelDownloadService>();
         services.AddSingleton<QuestionGeneratorFactory>();
         services.AddSingleton<ExporterCatalog>();
+        services.AddSingleton<AppUpdater>();
 
         services.AddTransient<ProjectsViewModel>();
         services.AddTransient<LectureViewModel>();
